@@ -75,8 +75,6 @@ function cargaInicial(pagina) {
     }
     //Mostrar los elementos en la consola (o puede hacer lo que necesites con ellos)
     elementosPagina.map((pelicula, indice) => {
-      //const contador = startIndex + 1;
-      //console.log('contador:', contador + '</br>');
       crearFila(pelicula, startIndex + indice + 1);
     });
   }
@@ -247,7 +245,6 @@ function editarPelicula() {
   guardarEnLocalStorage();
   //4- actualizar la fila de la tabla
   //let tbody = document.querySelector('#tablaPelicula');
-  console.log('posicion tbody', posicionPelicula % pageSize);
   console.log(tablaPelicula.children[posicionPelicula % pageSize].children[1]);
   tablaPelicula.children[posicionPelicula % pageSize].children[1].innerHTML =
     titulo.value;
@@ -282,9 +279,19 @@ window.borrarPelicula = (codigo) => {
       //actualizar el localstorage
       guardarEnLocalStorage();
       //borrar la fila de la tabla
-      let tbody = document.querySelector('#tablaPelicula');
-      tbody.removeChild(tbody.children[posicionPeli]);
-      //todo: actualizar el numero de  las filas de la tabla
+      //let tbody = document.querySelector('#tablaPelicula');
+      tablaPelicula.removeChild(
+        tablaPelicula.children[posicionPeli % pageSize]
+      );
+      //se refresca la página
+      if (listaPeliculas.length % pageSize === 0) {
+        cargaInicial(1);
+      } else {
+        cargaInicial(paginaActual);
+      }
+      //actualizar el numero de  las filas de la tabla
+      paginacionDiv.innerHTML = '';
+      mostrarPaginacion();
       Swal.fire(
         'Pelicula eliminada',
         'La pelicula seleccionada fue eliminada correctamente',
