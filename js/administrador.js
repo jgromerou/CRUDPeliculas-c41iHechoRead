@@ -74,9 +74,10 @@ function cargaInicial(pagina) {
       tablaPelicula.removeChild(tablaPelicula.firstChild);
     }
     //Mostrar los elementos en la consola (o puede hacer lo que necesites con ellos)
-    elementosPagina.forEach((pelicula) => {
-      console.log(pelicula);
-      crearFila(pelicula);
+    elementosPagina.map((pelicula, indice) => {
+      //const contador = startIndex + 1;
+      //console.log('contador:', contador + '</br>');
+      crearFila(pelicula, startIndex + indice + 1);
     });
   }
   totalPaginas = calcularPaginas(listaPeliculas.length);
@@ -86,10 +87,10 @@ function cargaInicial(pagina) {
   }
 }
 
-function crearFila(pelicula) {
+function crearFila(pelicula, indice) {
   //let tbody = document.querySelector('#tablaPelicula');
   tablaPelicula.innerHTML += `<tr>
-  <td scope="col">1</td>
+  <td scope="col">${indice}</td>
   <td>${pelicula.titulo}</td>
   <td class="tamanioCelda text-truncate">
     ${pelicula.descripcion}
