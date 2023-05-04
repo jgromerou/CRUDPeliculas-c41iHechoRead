@@ -1,6 +1,17 @@
 import Pelicula from './classPelicula.js';
 import { sumarioValidacion } from './helpers.js';
 
+const tablaPelicula = document.querySelector('#tablaPelicula');
+
+const paginacionDiv = document.querySelector('#paginacion');
+paginacionDiv.addEventListener('click', direccionPaginacion);
+
+let paginaActual = 1;
+let totalPaginas;
+let iteradorSiguiente;
+// Tamaño de página
+const pageSize = 5;
+
 //variables globales
 let listaPeliculas = JSON.parse(localStorage.getItem('listaPeliculas')) || [];
 //saber si el array esta no vacio
@@ -21,7 +32,6 @@ if (listaPeliculas.length !== 0) {
       )
   );
 }
-console.log(listaPeliculas);
 
 let formularioAdminPelicula = document.getElementById('formPelicula');
 let codigo = document.getElementById('codigo'),
@@ -45,18 +55,40 @@ let crearPeliculaNueva = true; //bandera : true(crear) y false(editar)
 formularioAdminPelicula.addEventListener('submit', prepararFormulario);
 btnCrearPelicula.addEventListener('click', mostrarFormularioPelicula);
 
-cargaInicial();
+cargaInicial(paginaActual);
 
-function cargaInicial() {
+function cargaInicial(pagina) {
   if (listaPeliculas.length > 0) {
     //dibujo una fila en la tabla
-    listaPeliculas.map((pelicula) => crearFila(pelicula));
+    // listaPeliculas.map((pelicula) => crearFila(pelicula));
+    //Cálculo del índice inicial y final de la página
+    const startIndex = (pagina - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    //Obtener los elementos de la página actual
+    console.log(startIndex, endIndex);
+    const elementosPagina = listaPeliculas.slice(startIndex, endIndex);
+    console.log(elementosPagina);
+    //borra el primer hijo de la tabla pelicula
+    while (tablaPelicula.firstChild) {
+      tablaPelicula.removeChild(tablaPelicula.firstChild);
+    }
+    //Mostrar los elementos en la consola (o puede hacer lo que necesites con ellos)
+    elementosPagina.forEach((pelicula) => {
+      console.log(pelicula);
+      crearFila(pelicula);
+    });
+  }
+  totalPaginas = calcularPaginas(listaPeliculas.length);
+  console.log('cantidad Páginas: ' + totalPaginas);
+  if (!iteradorSiguiente) {
+    mostrarPaginacion();
   }
 }
 
 function crearFila(pelicula) {
-  let tbody = document.querySelector('#tablaPelicula');
-  tbody.innerHTML += `<tr>
+  //let tbody = document.querySelector('#tablaPelicula');
+  tablaPelicula.innerHTML += `<tr>
   <td scope="col">1</td>
   <td>${pelicula.titulo}</td>
   <td class="tamanioCelda text-truncate">
@@ -247,3 +279,55 @@ window.borrarPelicula = (codigo) => {
     }
   });
 };
+
+//Paginacion
+function mostrarPaginacion() {
+  // recorrer el iterador
+  iteradorSiguiente = crearPaginacion(totalPaginas);
+  while (true) {
+    const { value, done } = iteradorSiguiente.next();
+
+    if (done) return;
+
+    // Crear botón de sig
+    const botonSiguiente = document.createElement('a');
+    botonSiguiente.href = '#';
+    botonSiguiente.dataset.pagina = value;
+    botonSiguiente.textContent = value;
+    botonSiguiente.classList.add(
+      'siguiente',
+      'bg-yellow-400',
+      'px-4',
+      'py-1',
+      'mr-2',
+      'mx-auto',
+      'mb-10',
+      'font-bold',
+      'uppercase',
+      'rounded'
+    );
+    paginacionDiv.appendChild(botonSiguiente);
+  }
+}
+
+function calcularPaginas(total) {
+  console.log(total);
+  return parseInt(Math.ceil(total / 5));
+}
+
+// Crear el generador
+function* crearPaginacion(total) {
+  console.log(total);
+  for (let i = 1; i <= total; i++) {
+    yield i;
+  }
+}
+
+function direccionPaginacion(e) {
+  if (e.target.classList.contains('siguiente')) {
+    paginaActual = Number(e.target.dataset.pagina);
+    console.log(paginaActual);
+    cargaInicial(paginaActual);
+    //formulario.scrollIntoView();
+  }
+}
