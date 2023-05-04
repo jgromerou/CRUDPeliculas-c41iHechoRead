@@ -104,8 +104,7 @@
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <tbody id="tablaPelicula">
-            </tbody>
+            <tbody id="tablaPelicula"></tbody>
           </table>
         </article>
       </section>
@@ -152,7 +151,6 @@
                   type="text"
                   class="form-control"
                   placeholder="Ej: Robotech"
-                
                 />
               </div>
               <div class="mb-3">
@@ -167,8 +165,12 @@
                 ></textarea>
               </div>
               <div class="mb-3">
-                <label for="imagen">Imagen * <small class="text-secondary">
-                  (URL con formato .png, .jpg o gif)</small></label>
+                <label for="imagen"
+                  >Imagen *
+                  <small class="text-secondary">
+                    (URL con formato .png, .jpg o gif)</small
+                  ></label
+                >
                 <input
                   id="imagen"
                   type="text"
@@ -197,7 +199,6 @@
                   placeholder="Ej: 2023"
                   maxlength="4"
                   minlength="4"
-                 
                 />
               </div>
               <div class="mb-3">
@@ -211,7 +212,6 @@
                   type="text"
                   class="form-control"
                   placeholder="Ej: 93 min"
-                
                 />
               </div>
               <div class="mb-3">
@@ -226,10 +226,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="director"
-                  >Director
-                  ></label
-                >
+                <label for="director">Director ></label>
                 <input
                   id="director"
                   type="text"
@@ -258,8 +255,7 @@
                 class="alert alert-danger mt-3 d-none"
                 role="alert"
                 id="alerta"
-              >
-            </div>
+              ></div>
               <button class="btn btn-primary" type="submit" id="btnFormulario">
                 Enviar
               </button>
@@ -277,6 +273,9 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
+    "></script>
     <script src="../js/app.js"></script>
     <script src="../js/administrador.js" type="module"></script>
   </body>

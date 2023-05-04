@@ -70,7 +70,7 @@ function crearFila(pelicula) {
     <button class="btn btn-warning" onclick="prepararPelicula('${pelicula.codigo}')">
       <i class="bi bi-pencil-square"></i>
     </button>
-    <button class="btn btn-danger">
+    <button class="btn btn-danger" onclick="borrarPelicula('${pelicula.codigo}')">
       <i class="bi bi-x-square"></i>
     </button>
   </td>
@@ -131,24 +131,24 @@ function crearPelicula() {
   }
 }
 
-// function refreshTabla() {
-//   console.log('refresh');
-//   // let nuevaListaPeliculas =
-//   //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
+function refreshTabla() {
+  console.log('refresh');
+  // let nuevaListaPeliculas =
+  //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
 
-//   // Obtener el número total de elementos almacenados
-//   const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
-//   console.log('totalItems', totalItems);
-//   // Restar 1 para obtener el índice del último elemento
-//   const lastIndex = totalItems - 1;
-//   console.log('lastIndex', lastIndex);
-//   // Obtener el último elemento almacenado
-//   //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
-//   const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
-//     lastIndex
-//   );
-//   console.log('lastItem', lastItem);
-// }
+  // Obtener el número total de elementos almacenados
+  const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
+  console.log('totalItems', totalItems);
+  // Restar 1 para obtener el índice del último elemento
+  const lastIndex = totalItems - 1;
+  console.log('lastIndex', lastIndex);
+  // Obtener el último elemento almacenado
+  //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
+  const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
+    lastIndex
+  );
+  console.log('lastItem', lastItem);
+}
 
 function limpiarFormulario() {
   formularioAdminPelicula.reset();
@@ -211,3 +211,37 @@ function editarPelicula() {
   tbody.children[posicionPelicula].children[4].innerHTML = genero.value;
   modalFormPelicula.hide();
 }
+
+window.borrarPelicula = (codigo) => {
+  Swal.fire({
+    title: '¿Esta seguro de eliminar la pelicula?',
+    text: 'No se puede revertir este proceso',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Borrar',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    console.log(result);
+    if (result.isConfirmed) {
+      //agrega mi codigo de borrar
+      //borrar la pelicula del array
+      let posicionPeli = listaPeliculas.findIndex(
+        (pelicula) => pelicula.codigo === codigo
+      );
+      listaPeliculas.splice(posicionPeli, 1);
+      //actualizar el localstorage
+      guardarEnLocalStorage();
+      //borrar la fila de la tabla
+      let tbody = document.querySelector('#tablaPelicula');
+      tbody.removeChild(tbody.children[posicionPeli]);
+      //todo: actualizar el numero de  las filas de la tabla
+      Swal.fire(
+        'Pelicula eliminada',
+        'La pelicula seleccionada fue eliminada correctamente',
+        'success'
+      );
+    }
+  });
+};
