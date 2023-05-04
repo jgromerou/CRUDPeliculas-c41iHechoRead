@@ -39,6 +39,7 @@ let modalFormPelicula = new bootstrap.Modal(
 );
 console.log(modalFormPelicula);
 let btnCrearPelicula = document.getElementById('btnCrearPelicula');
+let crearPeliculaNueva = true; //bandera : true(crear) y false(editar)
 
 //manejadores de eventos
 formularioAdminPelicula.addEventListener('submit', prepararFormulario);
@@ -66,7 +67,7 @@ function crearFila(pelicula) {
   </td>
   <td>${pelicula.genero}</td>
   <td>
-    <button class="btn btn-warning">
+    <button class="btn btn-warning" onclick="prepararPelicula('${pelicula.codigo}')">
       <i class="bi bi-pencil-square"></i>
     </button>
     <button class="btn btn-danger">
@@ -79,7 +80,11 @@ function crearFila(pelicula) {
 function prepararFormulario(e) {
   e.preventDefault();
   console.log('aqui creo la peli');
-  crearPelicula();
+  if (crearPeliculaNueva) {
+    crearPelicula();
+  } else {
+    editarPelicula();
+  }
 }
 
 function crearPelicula() {
@@ -112,7 +117,7 @@ function crearPelicula() {
     listaPeliculas.push(peliculaNueva);
     console.log(listaPeliculas);
     //almacenar el array de pelis en localsotarge
-    localStorage.setItem('listaPeliculas', JSON.stringify(listaPeliculas));
+    guardarEnLocalStorage();
     //cerrar el modal con el formulario
     limpiarFormulario();
     modalFormPelicula.hide();
@@ -126,24 +131,24 @@ function crearPelicula() {
   }
 }
 
-function refreshTabla() {
-  console.log('refresh');
-  // let nuevaListaPeliculas =
-  //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
+// function refreshTabla() {
+//   console.log('refresh');
+//   // let nuevaListaPeliculas =
+//   //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
 
-  // Obtener el número total de elementos almacenados
-  const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
-  console.log('totalItems', totalItems);
-  // Restar 1 para obtener el índice del último elemento
-  const lastIndex = totalItems - 1;
-  console.log('lastIndex', lastIndex);
-  // Obtener el último elemento almacenado
-  //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
-  const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
-    lastIndex
-  );
-  console.log('lastItem', lastItem);
-}
+//   // Obtener el número total de elementos almacenados
+//   const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
+//   console.log('totalItems', totalItems);
+//   // Restar 1 para obtener el índice del último elemento
+//   const lastIndex = totalItems - 1;
+//   console.log('lastIndex', lastIndex);
+//   // Obtener el último elemento almacenado
+//   //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
+//   const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
+//     lastIndex
+//   );
+//   console.log('lastItem', lastItem);
+// }
 
 function limpiarFormulario() {
   formularioAdminPelicula.reset();
@@ -151,4 +156,58 @@ function limpiarFormulario() {
 
 function mostrarFormularioPelicula() {
   modalFormPelicula.show();
+}
+
+function guardarEnLocalStorage() {
+  localStorage.setItem('listaPeliculas', JSON.stringify(listaPeliculas));
+}
+
+window.prepararPelicula = (codigoPelicula) => {
+  //1- buscar el objeto que quiero mostrar en el form
+  let peliculaBuscada = listaPeliculas.find(
+    (pelicula) => pelicula.codigo === codigoPelicula
+  );
+  console.log(peliculaBuscada);
+  //2- mostrar el formulario con los datos
+  modalFormPelicula.show();
+  codigo.value = peliculaBuscada.codigo;
+  titulo.value = peliculaBuscada.titulo;
+  imagen.value = peliculaBuscada.imagen;
+  descripcion.value = peliculaBuscada.descripcion;
+  pais.value = peliculaBuscada.pais;
+  genero.value = peliculaBuscada.genero;
+  reparto.value = peliculaBuscada.reparto;
+  director.value = peliculaBuscada.director;
+  //3- cambiar el estado de la variable crearPeliculaNueva a false
+  crearPeliculaNueva = false;
+};
+
+function editarPelicula() {
+  console.log('aqui quiero editar');
+  //1- en que posicion esta almancenada la peli que quiero editar
+  let posicionPelicula = listaPeliculas.findIndex(
+    (pelicula) => pelicula.codigo === codigo.value
+  );
+  console.log(posicionPelicula);
+  //todo: chequear que todos los datos del formulario sean validos
+  //2- editar los datos de la pelicula seleccionada
+  listaPeliculas[posicionPelicula].titulo = titulo.value;
+  listaPeliculas[posicionPelicula].descripcion = descripcion.value;
+  listaPeliculas[posicionPelicula].imagen = imagen.value;
+  listaPeliculas[posicionPelicula].pais = pais.value;
+  listaPeliculas[posicionPelicula].reparto = reparto.value;
+  listaPeliculas[posicionPelicula].genero = genero.value;
+  listaPeliculas[posicionPelicula].director = director.value;
+  listaPeliculas[posicionPelicula].duracion = duracion.value;
+  listaPeliculas[posicionPelicula].anio = anio.value;
+  //3 - actualizar el localstorage
+  guardarEnLocalStorage();
+  //4- actualizar la fila de la tabla
+  let tbody = document.querySelector('#tablaPelicula');
+  console.log(tbody.children[posicionPelicula].children[1]);
+  tbody.children[posicionPelicula].children[1].innerHTML = titulo.value;
+  tbody.children[posicionPelicula].children[2].innerHTML = descripcion.value;
+  tbody.children[posicionPelicula].children[3].innerHTML = imagen.value;
+  tbody.children[posicionPelicula].children[4].innerHTML = genero.value;
+  modalFormPelicula.hide();
 }
