@@ -153,10 +153,16 @@ function crearPelicula() {
     //cerrar el modal con el formulario
     limpiarFormulario();
     //dibular la fila nueva en la tabla
-    if (listaPeliculas.length < pageSize) {
-      crearFila(peliculaNueva, listaPeliculas.length);
-    }
+    // if (listaPeliculas.length < pageSize) {
+    //   crearFila(peliculaNueva, listaPeliculas.length);
+    // }
+    //se refresca la página
+    cargaInicial(paginaActual);
     //ocultar el modal de crear el formulario
+    //if (!iteradorSiguiente) {
+    paginacionDiv.innerHTML = '';
+    mostrarPaginacion();
+    //}
     modalFormPelicula.hide();
     //refreshTabla();
   } else {
