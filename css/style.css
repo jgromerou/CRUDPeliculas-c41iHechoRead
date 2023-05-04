@@ -1,0 +1,19 @@
+.tamanioCelda {
+  max-width: 10rem;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+.containerCard img {
+  margin: auto;
+  height: 400px;
+  object-fit: cover;
+}
