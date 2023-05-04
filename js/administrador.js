@@ -120,9 +120,11 @@ function crearPelicula() {
     guardarEnLocalStorage();
     //cerrar el modal con el formulario
     limpiarFormulario();
+    //dibular la fila nueva en la tabla
+    crearFila(peliculaNueva, listaPeliculas.length);
+    //ocultar el modal de crear el formulario
     modalFormPelicula.hide();
-
-    refreshTabla();
+    //refreshTabla();
   } else {
     // mostrar al usuario el cartel de error
     let alerta = document.getElementById('alerta');
@@ -131,24 +133,24 @@ function crearPelicula() {
   }
 }
 
-function refreshTabla() {
-  console.log('refresh');
-  // let nuevaListaPeliculas =
-  //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
+// function refreshTabla() {
+//   console.log('refresh');
+//   // let nuevaListaPeliculas =
+//   //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
 
-  // Obtener el número total de elementos almacenados
-  const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
-  console.log('totalItems', totalItems);
-  // Restar 1 para obtener el índice del último elemento
-  const lastIndex = totalItems - 1;
-  console.log('lastIndex', lastIndex);
-  // Obtener el último elemento almacenado
-  //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
-  const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
-    lastIndex
-  );
-  console.log('lastItem', lastItem);
-}
+//   // Obtener el número total de elementos almacenados
+//   const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
+//   console.log('totalItems', totalItems);
+//   // Restar 1 para obtener el índice del último elemento
+//   const lastIndex = totalItems - 1;
+//   console.log('lastIndex', lastIndex);
+//   // Obtener el último elemento almacenado
+//   //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
+//   const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
+//     lastIndex
+//   );
+//   console.log('lastItem', lastItem);
+// }
 
 function limpiarFormulario() {
   formularioAdminPelicula.reset();
