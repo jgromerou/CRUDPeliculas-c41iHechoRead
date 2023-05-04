@@ -153,7 +153,9 @@ function crearPelicula() {
     //cerrar el modal con el formulario
     limpiarFormulario();
     //dibular la fila nueva en la tabla
-    crearFila(peliculaNueva, listaPeliculas.length);
+    if (listaPeliculas.length < pageSize) {
+      crearFila(peliculaNueva, listaPeliculas.length);
+    }
     //ocultar el modal de crear el formulario
     modalFormPelicula.hide();
     //refreshTabla();
