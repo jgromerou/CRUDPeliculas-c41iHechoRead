@@ -246,12 +246,17 @@ function editarPelicula() {
   //3 - actualizar el localstorage
   guardarEnLocalStorage();
   //4- actualizar la fila de la tabla
-  let tbody = document.querySelector('#tablaPelicula');
-  console.log(tbody.children[posicionPelicula].children[1]);
-  tbody.children[posicionPelicula].children[1].innerHTML = titulo.value;
-  tbody.children[posicionPelicula].children[2].innerHTML = descripcion.value;
-  tbody.children[posicionPelicula].children[3].innerHTML = imagen.value;
-  tbody.children[posicionPelicula].children[4].innerHTML = genero.value;
+  //let tbody = document.querySelector('#tablaPelicula');
+  console.log('posicion tbody', posicionPelicula % pageSize);
+  console.log(tablaPelicula.children[posicionPelicula % pageSize].children[1]);
+  tablaPelicula.children[posicionPelicula % pageSize].children[1].innerHTML =
+    titulo.value;
+  tablaPelicula.children[posicionPelicula % pageSize].children[2].innerHTML =
+    descripcion.value;
+  tablaPelicula.children[posicionPelicula % pageSize].children[3].innerHTML =
+    imagen.value;
+  tablaPelicula.children[posicionPelicula % pageSize].children[4].innerHTML =
+    genero.value;
   modalFormPelicula.hide();
 }
 
