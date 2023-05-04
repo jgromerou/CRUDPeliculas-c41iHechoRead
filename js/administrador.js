@@ -301,7 +301,7 @@ window.borrarPelicula = (codigo) => {
   });
 };
 
-//Paginacion
+//Paginación
 function mostrarPaginacion() {
   // recorrer el iterador
   iteradorSiguiente = crearPaginacion(totalPaginas);
@@ -310,22 +310,24 @@ function mostrarPaginacion() {
 
     if (done) return;
 
-    // Crear botón de sig
+    // Crear botón de siguiente value página
     const botonSiguiente = document.createElement('a');
     botonSiguiente.href = '#';
     botonSiguiente.dataset.pagina = value;
     botonSiguiente.textContent = value;
     botonSiguiente.classList.add(
       'siguiente',
-      'bg-yellow-400',
       'px-4',
       'py-1',
       'mr-2',
-      'mx-auto',
+      'mx-1',
       'mb-10',
       'font-bold',
       'uppercase',
-      'rounded'
+      'rounded',
+      'bg-secondary',
+      'bg-gradient',
+      'text-white'
     );
     paginacionDiv.appendChild(botonSiguiente);
   }
@@ -349,6 +351,6 @@ function direccionPaginacion(e) {
     paginaActual = Number(e.target.dataset.pagina);
     console.log(paginaActual);
     cargaInicial(paginaActual);
-    //formulario.scrollIntoView();
+    //form.scrollIntoView(); // me sirve para un buscador en un input
   }
 }
