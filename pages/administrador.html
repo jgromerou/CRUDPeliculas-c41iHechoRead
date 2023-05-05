@@ -19,10 +19,11 @@
     <title>CRUD Peliculas</title>
   </head>
   <body>
-    <header>
+    <header id="header" class="header">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
           <a class="navbar-brand" href="../index.html">Peliculas</a>
+
           <button
             class="navbar-toggler"
             type="button"
@@ -34,6 +35,7 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
@@ -71,6 +73,38 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link">Logout</a>
+              </li>
+              <li class="submenu nav-item">
+                <!-- <div class="two columns u-full-width nav-link">
+                  <ul> -->
+
+                <div class="nav-link">
+                  <img src="../img/cart.png" id="img-carrito" />
+                  <div id="carrito" class="u-pull-center">
+                    <table id="lista-carrito" class="u-full-width">
+                      <thead>
+                        <tr>
+                          <th>Imagen</th>
+                          <th>Nombre</th>
+                          <th>Precio</th>
+                          <th>Cantidad</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+
+                    <a
+                      href="#"
+                      id="vaciar-carrito"
+                      class="botonVaciarCarrito u-full-width"
+                      >Vaciar Carrito</a
+                    >
+                  </div>
+                </div>
+
+                <!-- </ul>
+                </div> -->
               </li>
             </ul>
           </div>
