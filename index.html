@@ -19,10 +19,11 @@
     <title>CRUD Peliculas</title>
   </head>
   <body>
-    <header>
+    <header id="header" class="header">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-          <a class="navbar-brand" href="index.html">Peliculas</a>
+          <a class="navbar-brand" href="../index.html">Peliculas</a>
+
           <button
             class="navbar-toggler"
             type="button"
@@ -34,15 +35,17 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html"
-                  >Inicio</a
-                >
+                <a class="nav-link" href="../index.html">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="pages/administrador.html"
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="administrador.html"
                   >Administrador</a
                 >
               </li>
@@ -71,6 +74,38 @@
               <li class="nav-item">
                 <a class="nav-link">Logout</a>
               </li>
+              <li class="submenu nav-item">
+                <!-- <div class="two columns u-full-width nav-link">
+                  <ul> -->
+
+                <div class="nav-link">
+                  <img src="../img/cart.png" id="img-carrito" />
+                  <div id="carrito">
+                    <table id="lista-carrito" class="full-width">
+                      <thead>
+                        <tr>
+                          <th>Imagen</th>
+                          <th>Nombre</th>
+                          <th>Precio</th>
+                          <th>Cantidad</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+
+                    <a
+                      href="#"
+                      id="vaciar-carrito"
+                      class="botonVaciarCarrito full-width"
+                      >Vaciar Carrito</a
+                    >
+                  </div>
+                </div>
+
+                <!-- </ul>
+                </div> -->
+              </li>
             </ul>
           </div>
         </div>
@@ -84,6 +119,55 @@
         <section class="row" id="sectionCards"></section>
       </section>
     </main>
+    <div
+      class="modal fade"
+      id="comentarioModal"
+      tabindex="-1"
+      aria-labelledby="comentarioModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="comentarioModalLabel">
+              Dejar un Comentario:
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="reseniaVoto">Voto *</label>
+                <select id="reseniaVoto" class="form-control">
+                  <option value="">Selecione una opcion</option>
+                  <option value="1">Voto Positivo</option>
+                  <option value="-1">Voto Negativo</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="reseniaComentario" class="form-label"
+                  >Comentario</label
+                >
+                <textarea
+                  class="form-control"
+                  id="reseniaComentario"
+                  placeholder="Escriba una reseña"
+                  rows="3"
+                ></textarea>
+              </div>
+              <button type="submit" id="botonComentar" class="btn btn-primary">
+                Agregar Reseña
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <footer class="bg-dark text-light text-center py-3">
       <p>&copy; Todos los derechos reservados</p>
     </footer>

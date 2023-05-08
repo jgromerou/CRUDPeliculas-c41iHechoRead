@@ -18,6 +18,17 @@ main {
   object-fit: cover;
 }
 
+/* ======================== CARDS ================ */
+.precio {
+  text-decoration: line-through;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.precio span {
+  font-weight: 700;
+  font-size: 22px;
+}
+
 /* ========================== Carrito ========================= */
 .submenu {
   position: relative;
@@ -45,7 +56,7 @@ main {
 ul {
   list-style: none;
 }
-.borrar-curso {
+.borrar-pelicula {
   background-color: red;
   border-radius: 50%;
   padding: 5px 10px;

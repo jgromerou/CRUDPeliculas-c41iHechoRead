@@ -141,7 +141,9 @@ function crearPelicula() {
       duracion.value,
       pais.value,
       director.value,
-      reparto.value
+      reparto.value,
+      0,
+      ''
     );
     console.log(peliculaNueva); // "El Padrino"
     //la voy agregar en un array
@@ -163,7 +165,6 @@ function crearPelicula() {
     mostrarPaginacion();
     //}
     modalFormPelicula.hide();
-    //refreshTabla();
   } else {
     // mostrar al usuario el cartel de error
     let alerta = document.getElementById('alerta');
@@ -171,25 +172,6 @@ function crearPelicula() {
     alerta.className = 'alert alert-danger mt-3';
   }
 }
-
-// function refreshTabla() {
-//   console.log('refresh');
-//   // let nuevaListaPeliculas =
-//   //   JSON.parse(localStorage.getItem('listaPeliculas')) || [];
-
-//   // Obtener el número total de elementos almacenados
-//   const totalItems = JSON.parse(localStorage.getItem('listaPeliculas')).length;
-//   console.log('totalItems', totalItems);
-//   // Restar 1 para obtener el índice del último elemento
-//   const lastIndex = totalItems - 1;
-//   console.log('lastIndex', lastIndex);
-//   // Obtener el último elemento almacenado
-//   //  const lastItem = localStorage.getItem('listaPeliculas').key(lastIndex);
-//   const lastItem = JSON.parse(localStorage.getItem('listaPeliculas')).key(
-//     lastIndex
-//   );
-//   console.log('lastItem', lastItem);
-// }
 
 function limpiarFormulario() {
   formularioAdminPelicula.reset();
