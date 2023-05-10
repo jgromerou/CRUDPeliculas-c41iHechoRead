@@ -7,11 +7,38 @@ const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const sectionCards = document.querySelector('#sectionCards');
 const botonVaciarCarrito = document.querySelector('#vaciar-carrito');
 let articulosCarrito = [];
+let voto = 0;
 
 //variables de reseñas
+let formularioResenia = document.getElementById('formResenia');
 let modalFormResenia = new bootstrap.Modal(
   document.getElementById('comentarioModal')
 );
+
+console.log(formularioResenia);
+
+const positivo = document.getElementById('positivo');
+positivo.addEventListener('click', function () {
+  positivo.classList.add('btnHover');
+  console.log('positivo');
+  //remover la clase de selected del botón negativo
+  negativo.classList.remove('selected2');
+  // Agregar la clase 'selected' al botón seleccionado
+  positivo.classList.add('selected1');
+  //voto positivo toma el valor = 1
+  voto = 1;
+});
+
+const negativo = document.getElementById('negativo');
+negativo.addEventListener('click', function () {
+  console.log('positivo');
+  //remover la clase de selected del botón negativo
+  positivo.classList.remove('selected1');
+  // Agregar la clase 'selected' al botón seleccionado
+  negativo.classList.add('selected2');
+  //voto negativo toma el valor = -1
+  voto = -1;
+});
 
 //manejador de Eventos
 //Cuando agregar una pelicula presionando "Agregar al Carrito"
@@ -97,14 +124,6 @@ function eleccionesBotonesCard(e) {
       e.target.parentElement.querySelector('h5').textContent
     );
     btnComentario.addEventListener('submit', escribirResenia);
-
-    // document
-    //   .getElementById('botonComentar')
-    //   .addEventListener('submit', escribirComentario);
-    // function escribirComentario(e) {
-    //   e.preventDefault();
-    //   console.log('escribir comentario');
-    // }
   }
 
   //boton Agregar Carrito
@@ -201,11 +220,7 @@ function eliminarPelicula(e) {
   }
 }
 
-//reseña - comentario y voto positivo o negativo
-function mostrarFormularioResenia() {
-  modalFormResenia.show();
-}
-
+//escribir reseña
 function escribirResenia(e) {
   e.preventDefault();
   //1- en que posicion esta almancenada la peli que quiero agregar la resenia
@@ -213,10 +228,6 @@ function escribirResenia(e) {
     (pelicula) => pelicula.titulo === e.target.getAttribute('id')
   );
   console.log('id', e.target.id.trim());
-
-  // console.log(e.target.id);
-  // console.log('votoResenia', reseniaVoto.value);
-  // console.log('votoDescripcion', reseniaComentario.value);
   //2- ver si existe la resenia del usuario en la pelicula
   console.log(listaPeliculas[posicionPelicula].listaResenia);
   if (
@@ -228,11 +239,16 @@ function escribirResenia(e) {
     alert(
       `<p>Ya existe una resenia del codigo de usuario ${e.target.id}. Reseña rechazado</p>`
     );
+
+    //6- cerrar Modal
+    modalFormResenia.hide();
+    //7- limpiar Formulario
+    limpiarFormularioResenia();
   } else {
     //3- crear el objeto resenia
     const reseniaNueva = new Resenia(
       e.target.id,
-      reseniaVoto.value,
+      voto,
       reseniaComentario.value
     );
     console.log(reseniaNueva);
@@ -243,9 +259,19 @@ function escribirResenia(e) {
     guardarEnLocalstorage();
     //6- cerrar Modal
     modalFormResenia.hide();
+    //7- LimpiarFormulario
+    limpiarFormularioResenia();
   }
 }
 
 function guardarEnLocalstorage() {
   localStorage.setItem('listaPeliculas', JSON.stringify(listaPeliculas));
+}
+
+function limpiarFormularioResenia() {
+  const positivo = document.getElementById('positivo');
+  positivo.classList.remove('selected1');
+  const negativo = document.getElementById('negativo');
+  negativo.classList.remove('selected2');
+  formularioResenia.reset();
 }

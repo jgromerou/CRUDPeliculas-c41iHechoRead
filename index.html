@@ -140,14 +140,33 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="formResenia">
               <div class="mb-3">
                 <label for="reseniaVoto">Voto *</label>
-                <select id="reseniaVoto" class="form-control">
+                <!-- <select id="reseniaVoto" class="form-control">
                   <option value="">Selecione una opcion</option>
                   <option value="1">Voto Positivo</option>
                   <option value="-1">Voto Negativo</option>
-                </select>
+                </select> -->
+                <div
+                  class="my-3 d-flex justify-content-around"
+                  aria-label="Basic example"
+                >
+                  <button
+                    class="btn btn-outline-success rounded m-2 btnHover"
+                    type="button"
+                    id="positivo"
+                  >
+                    <i class="bi bi-hand-thumbs-up fs-3"></i>
+                  </button>
+                  <button
+                    class="btn btn-outline-danger m-2 btnHover"
+                    type="button"
+                    id="negativo"
+                  >
+                    <i class="bi bi-hand-thumbs-down fs-3"></i>
+                  </button>
+                </div>
               </div>
               <div class="mb-3">
                 <label for="reseniaComentario" class="form-label"

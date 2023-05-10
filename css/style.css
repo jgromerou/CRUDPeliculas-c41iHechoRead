@@ -107,6 +107,20 @@ header {
   float: left;
 }
 
+.selected1 {
+  background-color: green;
+  color: white;
+}
+
+.selected2 {
+  background-color: red;
+  color: white;
+}
+.btnHover:hover {
+  width: 75px;
+  height: 75px;
+}
+
 @media screen and (min-width: 996px) {
   header {
     text-align: center;
