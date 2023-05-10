@@ -78,15 +78,14 @@ function crearCard(pelicula) {
           ${pelicula.descripcion}
         </p>
         <p class="precio">$500 <span class="pull-right">$60</span></p>
-        <a href="../pages/detalle.html">
+       
             <button
             class="btn btn-primary my-2 w-100 boton-detalles"
-            title="${pelicula.titulo}"
-            onclick="ver(this)"
+            onclick="navegarDetallePelicula('${pelicula.codigo}')"
             >
             Ver Detalles
             </button>
-        </a>
+        
         <button
         class="btn btn-info my-2 w-100 boton-resenia"
         >
@@ -103,10 +102,19 @@ function crearCard(pelicula) {
   </aside>`;
 }
 
-function ver(element) {
-  console.log(element);
-  localStorage.setItem('titulo', element.getAttribute('title'));
-}
+window.navegarDetallePelicula = (codigo) => {
+  console.log(codigo);
+  console.log(window.location);
+  // nombre de dominio
+  console.log(window.location.origin + '/pages/detalle.html?codigo=' + codigo);
+  window.location.href =
+    window.location.origin + '/pages/detalle.html?codigo=' + codigo;
+};
+
+// function ver(element) {
+//   console.log(element);
+//   localStorage.setItem('titulo', element.getAttribute('title'));
+// }
 
 //Funciones de los botones de la card
 function eleccionesBotonesCard(e) {
