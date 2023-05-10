@@ -141,9 +141,7 @@ function crearPelicula() {
       duracion.value,
       pais.value,
       director.value,
-      reparto.value,
-      0,
-      ''
+      reparto.value
     );
     console.log(peliculaNueva); // "El Padrino"
     //la voy agregar en un array

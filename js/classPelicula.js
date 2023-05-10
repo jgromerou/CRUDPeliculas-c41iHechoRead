@@ -9,8 +9,7 @@ export default class Pelicula {
   #pais;
   #director;
   #reparto;
-  #reseniaVoto;
-  #reseniaDescripcion;
+  #listaResenia;
 
   constructor(
     titulo,
@@ -22,8 +21,7 @@ export default class Pelicula {
     pais,
     director,
     reparto,
-    reseniaVoto,
-    reseniaDescripcion
+    listaResenia = []
   ) {
     this.#codigo = uuidv4();
     this.#titulo = titulo;
@@ -35,8 +33,7 @@ export default class Pelicula {
     this.#pais = pais;
     this.#director = director;
     this.#reparto = reparto;
-    this.#reseniaVoto = reseniaVoto;
-    this.#reseniaDescripcion = reseniaDescripcion;
+    this.#listaResenia = listaResenia;
   }
 
   get codigo() {
@@ -118,20 +115,14 @@ export default class Pelicula {
   set reparto(reparto) {
     this.#reparto = reparto;
   }
-  get reseniaVoto() {
-    return this.#reseniaVoto;
+  get listaResenia() {
+    return this.#listaResenia;
   }
 
-  set reseniaVoto(reseniaVoto) {
-    this.#reseniaVoto = reseniaVoto;
-  }
-  get reseniaDescripcion() {
-    return this.#reseniaDescripcion;
+  set listaResenia(listaResenia) {
+    this.#listaResenia = listaResenia;
   }
 
-  set reseniaDescripcion(reseniaDescripcion) {
-    this.#reseniaDescripcion = reseniaDescripcion;
-  }
   //este metodo lo agregamos para q JSON.stringify pueda transformar las propiedades privadas a formato JSON
   toJSON() {
     return {
@@ -145,10 +136,7 @@ export default class Pelicula {
       pais: this.pais,
       director: this.director,
       reparto: this.reparto,
-      reseniaVoto: this.reseniaVoto,
-      reseniaDescripcion: this.reseniaDescripcion,
+      listaResenia: this.listaResenia,
     };
   }
 }
-
-let prueba = 'dato para exportar';

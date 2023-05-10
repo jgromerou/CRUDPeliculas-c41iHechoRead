@@ -1,3 +1,5 @@
+import Resenia from './classResenia.js';
+
 //variables globales
 let listaPeliculas = JSON.parse(localStorage.getItem('listaPeliculas')) || [];
 const carrito = document.querySelector('#carrito');
@@ -94,7 +96,7 @@ function eleccionesBotonesCard(e) {
       'id',
       e.target.parentElement.querySelector('h5').textContent
     );
-    btnComentario.addEventListener('submit', escribirComentario);
+    btnComentario.addEventListener('submit', escribirResenia);
 
     // document
     //   .getElementById('botonComentar')
@@ -199,27 +201,49 @@ function eliminarPelicula(e) {
   }
 }
 
-//reseña - comentarios y voto positivo o negativo
+//reseña - comentario y voto positivo o negativo
 function mostrarFormularioResenia() {
   modalFormResenia.show();
 }
 
-function escribirComentario(e) {
+function escribirResenia(e) {
   e.preventDefault();
   //1- en que posicion esta almancenada la peli que quiero agregar la resenia
   let posicionPelicula = listaPeliculas.findIndex(
     (pelicula) => pelicula.titulo === e.target.getAttribute('id')
   );
-  //todo: chequear que todos los datos del formulario sean validos
-  //2- editar los datos de la pelicula seleccionada
-  listaPeliculas[posicionPelicula].reseniaVoto = e.target[0].value;
-  listaPeliculas[posicionPelicula].reseniaComentario = e.target[1].value;
+  console.log('id', e.target.id.trim());
 
-  //3 - actualizar el localstorage
-  guardarEnLocalstorage();
-
-  //4- cerrar Modal
-  modalFormResenia.hide();
+  // console.log(e.target.id);
+  // console.log('votoResenia', reseniaVoto.value);
+  // console.log('votoDescripcion', reseniaComentario.value);
+  //2- ver si existe la resenia del usuario en la pelicula
+  console.log(listaPeliculas[posicionPelicula].listaResenia);
+  if (
+    listaPeliculas[posicionPelicula].listaResenia.find(
+      (element) => element.codigo === e.target.getAttribute('id')
+    )
+  ) {
+    //3-b si existe la reseñia avisa con un alert
+    alert(
+      `<p>Ya existe una resenia del codigo de usuario ${e.target.id}. Reseña rechazado</p>`
+    );
+  } else {
+    //3- crear el objeto resenia
+    const reseniaNueva = new Resenia(
+      e.target.id,
+      reseniaVoto.value,
+      reseniaComentario.value
+    );
+    console.log(reseniaNueva);
+    //4- agregar la resenia en el arry de lista reseña
+    listaPeliculas[posicionPelicula].listaResenia.push(reseniaNueva);
+    console.log(listaPeliculas);
+    //5 - actualizar el localstorage
+    guardarEnLocalstorage();
+    //6- cerrar Modal
+    modalFormResenia.hide();
+  }
 }
 
 function guardarEnLocalstorage() {
