@@ -1,5 +1,7 @@
 import Pelicula from './classPelicula.js';
-import { sumarioValidacion } from './helpers.js';
+import { sumarioValidacion, verificarUser } from './helpers.js';
+
+verificarUser();
 
 const tablaPelicula = document.querySelector('#tablaPelicula');
 

@@ -66,3 +66,31 @@ export function sumarioValidacion(titulo, descripcion, duracion, imagen, anio) {
   }
   return resumen;
 }
+
+export function verificarUser() {
+  let btnLogin = document.getElementById('btnLogin');
+  let listaUsuarios = JSON.parse(localStorage.getItem('listaUsuarios'));
+  const usuarioBuscado = listaUsuarios.some(
+    (usuario) =>
+      usuario.correoElectronico === correoElectronico.value &&
+      usuario.contrasenia === contrasenia.value
+  );
+  if (usuarioBuscado) {
+    console.log('if');
+    //mostrar la opcion de admin en el navbar solo si el usuario que está logueado es admin
+    btnLogin.innerHTML = 'Logout';
+    document.getElementById('adminPage').classList.remove('d-none');
+    document.getElementById('carritoList').classList.remove('d-none');
+  } else {
+    btnLogin.innerHTML = 'Login';
+    let webAdmin = window.location.origin + '/pages/administrador.html';
+    //si no está logueado se le muestra un cartel que no tiene los permisos suficientes para ver dicha página.
+    if (window.location.href === webAdmin) {
+      document.querySelector('main').innerHTML =
+        "<h2 class='text-center'>No tienes los permisos suficientes para ver está página, será direccionado a la página principal</h2>";
+      setTimeout(() => {
+        window.location.href = window.location.origin;
+      }, 3000);
+    }
+  }
+}
